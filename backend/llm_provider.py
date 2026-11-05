@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 DEFAULT_MODELS = {
     "ollama": "qwen2.5:7b",
     "gemini": "gemini-3.6-flash",
-    "groq": "llama-3.3-70b-versatile",
+    "groq": "openai/gpt-oss-120b",  # Groq retired its Llama models on 2026-08-16
 }
 
 # Newer Gemini models pin their own sampling and warn on every single call when
