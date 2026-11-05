@@ -1,0 +1,14 @@
+# Text files: normalise line endings
+* text=auto
+
+# Binary files: store byte for byte, never convert line endings
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.ico    binary
+*.pptx   binary
+*.docx   binary
+*.xlsx   binary
+*.joblib binary
+*.pkl    binary

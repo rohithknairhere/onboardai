@@ -1,0 +1,183 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+\title{\textbf{Tester Role Documentation}}
+\author{Prisha Saini (DL.AI.U4AID25039), Tester}
+\date{}
+\maketitle
+
+\begin{center}\itshape OnboardAI, Mid Term Review. Prepared by Prisha Saini (DL.AI.U4AID25039)\end{center}
+
+\begin{tabular}{p{0.26\linewidth}p{0.66\linewidth}}
+\toprule
+\textbf{Project} & OnboardAI, an AI assisted employee onboarding system \\
+\textbf{Role} & Tester \\
+\textbf{Phase} & Mid term review, work completed up to data splitting \\
+\textbf{Date} & 08 October 2026 \\
+\textbf{Suite location} & backend/tests/ \\
+\textbf{Current status} & 34 test cases, 55 executed checks, all passing \\
+\bottomrule
+\end{tabular}
+
+\section{1. Purpose and Scope}
+This document records the testing carried out during the first half of the project, the process used to carry it out, and the criteria applied when deciding whether a result is acceptable. It is written so that another member of the team can repeat the same checks and obtain the same answer without further explanation.
+
+The scope of this phase is deliberately limited. The machine learning models have not been through formal training and evaluation, so there are no accuracy figures available to verify. What exists is the data and the code that prepares it, and that is what has been tested. Testing the data before the models are built is not a weaker alternative to testing the models. If the data is wrong then every figure produced later is also wrong, and the cause becomes considerably harder to locate at that stage.
+
+\section{2. Responsibilities of the Tester Role}
+The responsibility of this role is to identify any point at which the system behaves differently from the agreed specification. For the current phase this divides into five areas.
+
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item Data validation. Confirming that the datasets are complete, correctly typed, balanced as claimed, and free of records that would corrupt an evaluation.
+  \item Preprocessing verification. Confirming that each transformation produced the output described, rather than accepting the description.
+  \item Split integrity. Confirming that the training and test folds are stratified, reproducible, and do not share records.
+  \item Boundary and exceptional input. Supplying empty files, oversized files, incorrect file types and malformed identifiers to observe how the system responds.
+  \item Performance. Measuring that processing steps which run inside a user request remain fast enough to be usable.
+\end{itemize}
+
+\section{3. Test Strategy and Design Decisions}
+Three decisions shaped the construction of the suite. Each is recorded here because the reasoning is not self evident from the code.
+
+No test invokes a language model. The assistant component of the system uses a language model, and its output is phrased differently on each run. A test that compared such output against an expected string would fail for reasons unrelated to the change being examined, and the team would quickly learn to ignore it. The parts of the agent system that are deterministic are tested instead, namely the tool permissions held by each agent and the classifier that determines which agent receives a message.
+
+All file handling tests write to a temporary directory. An early version of one test uploaded a document and added a row to the working database. That behaviour was unacceptable, since running a test suite must never alter the state of the project. Storage is now redirected to a temporary directory that is removed afterwards.
+
+Two tests assert that a defect is present rather than absent. The message dataset was found to contain duplicate entries, some of which appear in both the training and test folds. Rather than removing the assertion or silently correcting the data, tests were written that confirm the problem exists and place an upper bound on it. If the data is later corrected the test fails and is updated deliberately. If the problem grows worse the test also fails. A known defect with no test around it is more dangerous than one that is documented, because it can expand without being noticed.
+
+\section{4. Test Environment}
+The suite runs locally with no network access and no paid service. Execution takes approximately twenty seconds.
+
+\begin{verbatim}
+cd backend
+venv\Scripts\activate
+python -m pytest tests -q
+
+# regenerate the report with actual results
+python -m tests.make_test_report
+\end{verbatim}
+
+\section{5. The Testing Process for Each Iteration}
+The following sequence is followed whenever the developer changes anything that touches data, preprocessing or the document pipeline. It is written as discrete steps so that it can be repeated identically on each iteration.
+
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+  \item Establish what changed. The developer is asked which files were modified and which behaviour is expected to differ. Without this information an intended change cannot be distinguished from a fault.
+  \item Run the existing suite before examining any new behaviour. This establishes whether the change has broken something that previously worked. A failure at this point is a regression and takes priority over testing the new behaviour.
+  \item Regenerate the data report and the figures using python -m ml.data\_report and python -m ml.eda. Both read the live generators, so any shift in the data is reflected in the regenerated numbers.
+  \item Compare the new report against the previous one. Sample counts, class balance, duplicate counts, missing value counts and split overlap are examined specifically. Any change in these that was not mentioned by the developer is recorded as a finding.
+  \item Write test cases for the new behaviour before confirming that it works. The input, the expected result and the reason for that expectation are written down first. Performing this step before running the code prevents a test being written that merely agrees with whatever the code happens to do.
+  \item Add at least one boundary case and one exceptional case for every new input path. Where a change accepts a file, an empty file and a file of the wrong type are supplied. Where a change accepts an identifier, an empty identifier and one containing path characters are supplied.
+  \item Run the new tests and record the actual result beside the expected result. Where they match, the case passes. Where they do not, the test is not altered to agree with the code. The mismatch is raised as a defect.
+  \item Classify every mismatch as a fault in the code, a fault in the expectation, or a disagreement about intended behaviour. The third category is referred to the team lead rather than to the developer.
+  \item Re-run the complete suite after a defect is fixed, not only the test that failed. Fixes frequently affect adjacent behaviour, and running a single test conceals this.
+  \item Regenerate the test report so that the recorded results originate from an actual run. No result is written into the report by hand.
+\end{enumerate}
+
+\section{6. Criteria Used to Evaluate an Outcome}
+A test case passes only where the actual result matches an expected result that was recorded before the test was executed. The ordering is significant. Where the code is run first and the expectation written afterwards, the exercise records behaviour rather than testing it.
+
+Where a check does not involve an exact value, a threshold is applied, and that threshold is derived from the reason behind the check rather than from the figure the code currently produces. The preprocessing sparsity test illustrates this. The threshold was initially set at 99 per cent because that figure appeared in the data report, and the test failed. On investigation the reported figure applied to word features alone, while the code combines word and character features, which are legitimately denser. The code was correct and the threshold was wrong. The threshold was corrected to 95 per cent and a comment added explaining why. This is recorded as an example of a failing test that did not indicate a defect.
+
+Performance limits are set according to what a user would notice rather than according to the current measurement. Document analysis runs while a user waits for an upload to complete, so a limit of five seconds is applied. Classification and retrieval run on every chat message, so a limit of 150 milliseconds is applied. Both currently pass with a wide margin, which is intentional, since a limit set just above the present measurement would fail on any slower machine.
+
+A defect is any instance where the system behaves differently from the agreed specification, including cases where the specification itself proves unclear. Defects are graded as blocking where they would produce an incorrect result, major where they would mislead a reader of the project's figures, and minor otherwise.
+
+\section{7. Test Case Catalogue}
+The table lists all 34 cases. Several are parameterised, meaning that one case runs against several inputs, which produces 55 executed checks in total. The actual column is taken from the most recent execution of the suite.
+
+\begin{table}[!t]
+\centering
+\caption{Full test case catalogue}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.073\linewidth}p{0.136\linewidth}p{0.313\linewidth}p{0.345\linewidth}p{0.073\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Category} & \textbf{Input} & \textbf{Expected result} & \textbf{Actual} \\
+\midrule
+TC-01 & Validation & Generated document corpus & 4,950 documents, 9 classes, parallel arrays aligned & Pass \\
+TC-02 & Validation & All three datasets & Zero empty strings, zero NaN in features or target & Pass \\
+TC-03 & Validation & Document labels & Every class within 1\% of the mean count & Pass \\
+TC-04 & Validation & Document texts & Zero exact duplicates & Pass \\
+TC-05 & Known defect & Message texts & Duplicates present but under 10\% (known defect) & Pass \\
+TC-06 & Validation & Risk feature matrix & Float dtype, all finite, 12 columns, no constant column & Pass \\
+TC-07 & Validation & Risk target & Values in \{0,1\}, positive rate between 20\% and 80\% & Pass \\
+TC-08 & Boundary & Each bounded feature & Values inside their declared domain & Pass \\
+TC-09 & Preprocessing & Document texts through the vectoriser & Sparse matrix, one row per document, >95\% sparse & Pass \\
+TC-10 & Preprocessing & Document texts, min\_df 1 vs 2 & Pruning reduces the feature count & Pass \\
+TC-11 & Preprocessing & Risk features through StandardScaler & Every column mean \textasciitilde{}0, sd \textasciitilde{}1 & Pass \\
+TC-12 & Split & Documents split 75/25 stratified & Class proportions preserved within 1\% in both folds & Pass \\
+TC-13 & Split & Document train/test folds & Zero records present in both folds & Pass \\
+TC-14 & Known defect & Message train/test folds & Overlap present but under 15\% (known defect) & Pass \\
+TC-15 & Reproducibility & Risk split run twice with seed 42 & Identical folds both times & Pass \\
+TC-16 & Functional & Each of 7 demo PDFs + its requirement & The verdict named in the filename & Pass \\
+TC-17 & Functional & Expired safety certificate & Rejected, reason names the expiry date & Pass \\
+TC-18 & Regression & Passport line holding issue and expiry together & Each date gets its correct role & Pass \\
+TC-19 & Regression & Document titled 'CERTIFICATE OF ...' & Identifier taken from the field, not the title & Pass \\
+TC-20 & Boundary & Zero-byte upload & Rejected, no crash & Pass \\
+TC-21 & Exceptional & HTML content declared as application/pdf & Rejected on magic bytes & Pass \\
+TC-22 & Boundary & File one byte over the 10MB cap & Rejected and no partial file left on disk & Pass \\
+TC-23 & Exceptional & Employee ids with traversal or illegal characters & Rejected & Pass \\
+TC-24 & Exceptional & Crafted relative path '../../../windows/win.ini' & Refused, cannot escape the store & Pass \\
+TC-25 & Validation & PDF with no extractable text & Never auto-approved; routed to a human & Pass \\
+TC-26 & Performance & One demo PDF, warmed & End-to-end analysis under 5 seconds & Pass \\
+TC-27 & Functional & One representative message per intent & Routed to the correct specialist & Pass \\
+TC-28 & Boundary & 'any update?' & Low confidence, not routed to a specialist & Pass \\
+TC-29 & Functional & One message per sentiment class & The matching sentiment label & Pass \\
+TC-30 & Security & Message containing six identifier types & Every value stripped before leaving & Pass \\
+TC-31 & Access control & Same question from two organisations & Different, organisation-correct policies & Pass \\
+TC-32 & Access control & Security question from permitted and non-permitted departments & Restricted document hidden from Sales & Pass \\
+TC-33 & Architecture & Each specialist's tool registry & Capabilities disjoint and enforced by construction & Pass \\
+TC-34 & Performance & 50 classifications and 50 retrievals & Mean under 150ms per call & Pass \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{8. Defects and Observations Raised}
+Four findings arose during this phase. Two are defects in the data, one was a fault in a test rather than in the system, and one was a fault in the processing code which the developer subsequently corrected.
+
+\begin{table}[!t]
+\centering
+\caption{Defect log for the current phase}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.073\linewidth}p{0.543\linewidth}p{0.136\linewidth}p{0.188\linewidth}}
+\toprule
+\textbf{Ref} & \textbf{Finding} & \textbf{Severity} & \textbf{Status} \\
+\midrule
+T-01 & The message dataset contains 200 exact duplicate records. 70 of them appear in both the training and test folds. & Major & Open, covered by TC-05 and TC-14 \\
+T-02 & Three journey features, stage, progress and pct\_tasks\_complete, correlate above 0.9 with one another and therefore carry nearly identical information. & Minor & Open, recorded for the next phase \\
+T-03 & The sparsity threshold in TC-09 was derived from the wrong measurement, causing the test to fail although the code was correct. & Minor & Closed, threshold corrected with an explanatory comment \\
+T-04 & Date role extraction assigned the issue date as the expiry where both appear on a single line, which caused a valid passport to be marked as expired. & Blocking & Closed, corrected by the developer, regression test TC-18 added \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+T-01 warrants a longer note because of the way it was investigated. The initial assumption was that duplicate records appearing in both folds were inflating the reported scores, since the model would be evaluated partly on text it had already seen. Rather than accept that assumption, it was measured. The sentiment classifier was trained once and the test set was then scored in two parts, the rows that also appear in training and the rows that do not. Accuracy on the leaked rows was 0.9868 and accuracy on the clean rows was 0.9974. The leaked rows scored lower rather than higher, so the assumption was incorrect. The duplicated messages proved to be the short ambiguous ones, which are the hardest to classify in any case. The leakage remains a defect requiring correction, but it is not the reason the sentiment score is high.
+
+\section{9. Coverage Not Provided by This Suite}
+The following gaps are stated explicitly so that the suite is not assumed to cover more than it does.
+
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item No tests at the API level. The web endpoints are exercised manually and are not covered by the suite.
+  \item No authentication tests, since the system currently has no authentication to test.
+  \item No frontend tests. The React interface has no automated coverage.
+  \item No assessment of whether an assistant response is of good quality. Agent tool permissions and routing are verified, but response quality would require a different technique and would have to be reported as a trend rather than as a pass or fail result.
+  \item No automatic enforcement of accuracy thresholds. Once models are trained, the suite should fail where a score falls below an agreed figure, and this is not yet in place.
+\end{itemize}
+
+\section{10. Plan for the Next Phase}
+Once model training begins, the focus of testing moves from the data to model behaviour. The first addition planned is a set of threshold tests that fail the build where a model score falls below an agreed level, so that a change which quietly degrades a model is detected on the day it is made. Tests at the API level are also planned, since that is presently the largest untested surface. Finally the message dataset is to be deduplicated and the leakage re-measured, so that TC-05 and TC-14 can be rewritten as ordinary assertions rather than markers for a known defect.
+
+\end{document}

@@ -1,0 +1,385 @@
+{
+  "updated_at": "2026-11-05T11:33:34",
+  "rows": {
+    "P01": {
+      "id": "P01",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "How many days of annual leave do I get each year?",
+      "response": "According to the Leave Policy (Nimbus Labs) \u2014 Annual leave, you receive 24 days of paid annual leave per calendar year, accrued monthly at 2 days per month. Up to 10 unused days may be carried into the following year. \n\nIs there anything else related to leave you'd like to know, or do you have any other questions about your onboarding?",
+      "specialist": "Policy Agent",
+      "transferred_from": null,
+      "seconds": 27.2,
+      "ran_at": "2026-11-05T11:19:42",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 24"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Annual leave'"
+        }
+      ]
+    },
+    "P02": {
+      "id": "P02",
+      "emp_id": "emp_2",
+      "org": "Veltrix Corp",
+      "kind": "answer",
+      "question": "How many days of annual leave do I get each year?",
+      "response": "According to the Leave Policy (Veltrix Corp) \u2014 Annual leave, you are entitled to 18 days of paid annual leave per calendar year. It's important to request leave at least two weeks in advance so that shift cover can be arranged. \n\nIs there anything else you need help with regarding your leave entitlements?",
+      "specialist": "Policy Agent",
+      "transferred_from": null,
+      "seconds": 18.0,
+      "ran_at": "2026-11-05T11:20:00",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 18"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Annual leave'"
+        }
+      ]
+    },
+    "P03": {
+      "id": "P03",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "Do I need a doctor's note if I'm off sick?",
+      "response": "According to the Leave Policy (Nimbus Labs) \u2014 Sick leave, you need a medical certificate (which can be a doctor's note) for any absence of more than three consecutive working days. For shorter absences, you can use your sick leave without a note. If you have any further questions, feel free to ask!",
+      "specialist": "Policy Agent",
+      "transferred_from": "Document Agent",
+      "seconds": 44.8,
+      "ran_at": "2026-11-05T11:29:40",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: three / 3 "
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Sick leave'"
+        }
+      ]
+    },
+    "P04": {
+      "id": "P04",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "Can I work from another country for a while?",
+      "response": "According to our Remote Work Policy, working from abroad requires written approval from both your manager and People Operations, and is limited to 30 days per year due to tax reasons.\n\nWould you like me to help you raise a request for this with your manager and HR?",
+      "specialist": "Policy Agent",
+      "transferred_from": "Onboarding Agent",
+      "seconds": 38.4,
+      "ran_at": "2026-11-05T11:21:15",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 30 days / 30"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Working from abroad'"
+        }
+      ]
+    },
+    "P05": {
+      "id": "P05",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "How much will the company pay towards a desk and chair at home?",
+      "response": "According to our Remote Work Policy (Nimbus Labs) \u2014 Equipment at home, the company contributes up to INR 15,000 towards a desk and chair, and this contribution is claimable once every three years. \n\nIs there anything else related to your setup or any other questions you have?",
+      "specialist": "Policy Agent",
+      "transferred_from": "Onboarding Agent",
+      "seconds": 37.1,
+      "ran_at": "2026-11-05T11:21:52",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 15,000 / 15000"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Equipment at home'"
+        }
+      ]
+    },
+    "P06": {
+      "id": "P06",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "What's the deadline for submitting an expense claim?",
+      "response": "According to the company policy, expense claims must be submitted within 30 days of the expense being incurred, and they are reimbursed with the following month's salary. If you have any further questions or need assistance, feel free to ask!",
+      "specialist": "Policy Agent",
+      "transferred_from": "Document Agent",
+      "seconds": 31.1,
+      "ran_at": "2026-11-05T11:30:11",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 30 days / 30"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Expense claims'"
+        }
+      ]
+    },
+    "P07": {
+      "id": "P07",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "Who do I tell if I think customer data has been breached?",
+      "response": "According to our company policies, if you think customer data has been breached, you should report it to the Information Security team. You can reach out to them directly for guidance.\n\nIf you need immediate assistance, you can contact the Information Security team at [infosec@nimbuslabs.com](mailto:infosec@nimbuslabs.com) or call them at [123-456-7890](tel:123-456-7890).\n\nThank you for bringing this to our attention, and I'm here to support you through this process.",
+      "specialist": "Policy Agent",
+      "transferred_from": "Onboarding Agent",
+      "seconds": 48.6,
+      "ran_at": "2026-11-05T11:28:44",
+      "passed": false,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": false,
+          "detail": "Looked for: security@ / one hour / 1 hour"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": false,
+          "detail": "Expected a reference to 'Incidents'"
+        }
+      ]
+    },
+    "P08": {
+      "id": "P08",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "Can I take leave while I'm on probation?",
+      "response": "According to the Leave Policy (Nimbus Labs), you can take leave during your probation period, but it is limited to 6 days in total and requires manager approval in advance. For sick leave, you have 12 days of paid sick leave per year, and for annual leave, you receive 24 days per calendar year, accrued monthly at 2 days per month, with up to 10 unused days carried into the following year.\n\nIf you need to take leave, please ensure you discuss it with your manager to get the necessary approval.",
+      "specialist": "Policy Agent",
+      "transferred_from": null,
+      "seconds": 24.1,
+      "ran_at": "2026-11-05T11:23:33",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 6 days / six days / 6"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Leave during probation'"
+        }
+      ]
+    },
+    "P09": {
+      "id": "P09",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "answer",
+      "question": "Can I accept a gift from a supplier?",
+      "response": "According to the Code of Conduct at Nimbus Labs, gifts with a value above INR 2,000 must be declared to your manager. Cash gifts may never be accepted. It's important to adhere to these guidelines to maintain professionalism and avoid conflicts of interest.\n\nIf you have any more questions or need further clarification, feel free to ask!",
+      "specialist": "Policy Agent",
+      "transferred_from": "Onboarding Agent",
+      "seconds": 36.0,
+      "ran_at": "2026-11-05T11:24:09",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 2,000 / 2000"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Gifts'"
+        }
+      ]
+    },
+    "P10": {
+      "id": "P10",
+      "emp_id": "emp_2",
+      "org": "Veltrix Corp",
+      "kind": "answer",
+      "question": "What extra pay do I get for working nights?",
+      "response": "For working nights, you will receive a 25% allowance on your basic pay. This information can be found in the Shift Patterns document under the section on shift allowance. If you have any further questions or need more details, feel free to ask!",
+      "specialist": "Policy Agent",
+      "transferred_from": null,
+      "seconds": 16.8,
+      "ran_at": "2026-11-05T11:24:26",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: 25% / 25 % / 25 percent"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": true,
+          "detail": "Expected a reference to 'Shift allowance'"
+        }
+      ]
+    },
+    "P11": {
+      "id": "P11",
+      "emp_id": "emp_2",
+      "org": "Veltrix Corp",
+      "kind": "answer",
+      "question": "What protective gear do I need on the production floor?",
+      "response": "On the production floor, you will need to wear steel-toed boots, high-visibility vests, and eye protection at all times. Additionally, hearing protection is required in the press shop. It's also important to ensure that your safety certification is current, as it must be renewed every three years. If you have any questions or need further assistance, feel free to ask!",
+      "specialist": "Policy Agent",
+      "transferred_from": "Onboarding Agent",
+      "seconds": 50.7,
+      "ran_at": "2026-11-05T11:31:02",
+      "passed": false,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: steel-toed / steel toed / high-visibility / eye protection"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": false,
+          "detail": "Expected a reference to 'Personal protective equipment'"
+        }
+      ]
+    },
+    "P12": {
+      "id": "P12",
+      "emp_id": "emp_2",
+      "org": "Veltrix Corp",
+      "kind": "answer",
+      "question": "How long is a safety certificate valid for?",
+      "response": "At Veltrix Corp, a safety certificate is valid for three years. It must be renewed before it expires to ensure you can continue entering the production floor safely.",
+      "specialist": "Policy Agent",
+      "transferred_from": "Document Agent",
+      "seconds": 43.0,
+      "ran_at": "2026-11-05T11:31:45",
+      "passed": false,
+      "checks": [
+        {
+          "check": "Correct fact",
+          "passed": true,
+          "detail": "Looked for: three years / 3 years"
+        },
+        {
+          "check": "Cites the handbook",
+          "passed": false,
+          "detail": "Expected a reference to 'Certification'"
+        }
+      ]
+    },
+    "P13": {
+      "id": "P13",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "no_answer",
+      "question": "Is there a gym membership or wellness allowance?",
+      "response": "Hi Shreya,\n\nI've checked our company policies and found no specific mention of a gym membership or wellness allowance. I can raise this with HR on your behalf if you'd like. Would you like to proceed with that?\n\nBest,\n[Your Name]",
+      "specialist": "Policy Agent",
+      "transferred_from": null,
+      "seconds": 15.2,
+      "ran_at": "2026-11-05T11:25:37",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Declines instead of guessing",
+          "passed": true,
+          "detail": "The handbook has no answer for this employee."
+        }
+      ]
+    },
+    "P14": {
+      "id": "P14",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "no_answer",
+      "question": "What is the company's stock option vesting schedule?",
+      "response": "Hi Shreya,\n\nI've checked our company policies, but there's no specific document covering the stock option vesting schedule. I understand this might be causing some uncertainty. Would you like to discuss this further with HR to ensure we have the most accurate information for you?\n\nBest,\n[Your Name]",
+      "specialist": "Policy Agent",
+      "transferred_from": null,
+      "seconds": 18.4,
+      "ran_at": "2026-11-05T11:25:55",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Declines instead of guessing",
+          "passed": true,
+          "detail": "The handbook has no answer for this employee."
+        }
+      ]
+    },
+    "P15": {
+      "id": "P15",
+      "emp_id": "emp_1",
+      "org": "Nimbus Labs",
+      "kind": "isolation",
+      "question": "What is the lockout-tagout procedure for machine maintenance?",
+      "response": "Hi Shreya,\n\nThank you for reaching out. I understand that the lockout-tagout procedure for machine maintenance is outside my remit as an IT Provisioning Agent. This procedure is typically managed by our Safety and Compliance team. Would you like me to transfer you to the appropriate specialist who can provide you with the details you need?\n\nBest,\n[Your Name]",
+      "specialist": "IT Provisioning Agent",
+      "transferred_from": "Policy Agent",
+      "seconds": 43.0,
+      "ran_at": "2026-11-05T11:33:34",
+      "passed": false,
+      "checks": [
+        {
+          "check": "Declines instead of guessing",
+          "passed": false,
+          "detail": "The handbook has no answer for this employee."
+        }
+      ]
+    },
+    "P16": {
+      "id": "P16",
+      "emp_id": "emp_2",
+      "org": "Veltrix Corp",
+      "kind": "isolation",
+      "question": "Am I allowed to work from abroad, and for how long?",
+      "response": "I'm sorry, but I don't have a specific policy document that addresses working from abroad or the duration of such work. According to the documents I have, there is no clear guidance on this topic. \n\nFor your safety and compliance, I recommend speaking with HR to discuss any plans to work from abroad. They can provide you with the necessary information and ensure that all procedures are followed.\n\nWould you like me to raise this with HR on your behalf?",
+      "specialist": "Policy Agent",
+      "transferred_from": null,
+      "seconds": 21.2,
+      "ran_at": "2026-11-05T11:26:56",
+      "passed": true,
+      "checks": [
+        {
+          "check": "Declines instead of guessing",
+          "passed": true,
+          "detail": "The handbook has no answer for this employee."
+        }
+      ]
+    }
+  }
+}

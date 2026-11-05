@@ -1,0 +1,482 @@
+{
+  "documents": {
+    "name": "Onboarding documents",
+    "samples": 4950,
+    "classes": [
+      "background_check_consent",
+      "bank_details",
+      "education_certificate",
+      "govt_id",
+      "ip_agreement",
+      "offer_letter",
+      "other",
+      "professional_license",
+      "safety_certification"
+    ],
+    "class_counts": {
+      "background_check_consent": 550,
+      "bank_details": 550,
+      "education_certificate": 550,
+      "govt_id": 550,
+      "ip_agreement": 550,
+      "offer_letter": 550,
+      "other": 550,
+      "professional_license": 550,
+      "safety_certification": 550
+    },
+    "class_balance_ratio": 1.0,
+    "chars_total": 1723396,
+    "words_total": 240834,
+    "char_len": {
+      "min": 75,
+      "max": 727,
+      "mean": 348.16080808080807,
+      "median": 342.0,
+      "std": 120.63597298958958
+    },
+    "word_len": {
+      "min": 10,
+      "max": 100,
+      "mean": 48.653333333333336
+    },
+    "duplicates_exact": 0,
+    "duplicates_normalised": 0,
+    "empty_documents": 0,
+    "missing_values": 0,
+    "difficulty_tiers": {
+      "clean": 2005,
+      "degraded": 1841,
+      "severe": 1104
+    },
+    "source_templates": 21,
+    "tfidf": {
+      "raw_unique_tokens": 11056,
+      "word_ngram_features_min_df_1": 41908,
+      "word_ngram_features_min_df_2": 11482,
+      "features_pruned_away": 30426,
+      "matrix_shape": [
+        4950,
+        11482
+      ],
+      "sparsity_pct": 99.25802353793993,
+      "nonzero_per_doc_mean": 85.19373737373738
+    },
+    "split": {
+      "train_size": 3712,
+      "test_size": 1238,
+      "split_ratio": "75/25",
+      "random_state": 42,
+      "stratified": true,
+      "max_class_proportion_drift": 0.00014966475095785914,
+      "train_class_counts": {
+        "background_check_consent": 413,
+        "bank_details": 413,
+        "education_certificate": 412,
+        "govt_id": 412,
+        "ip_agreement": 412,
+        "offer_letter": 413,
+        "other": 412,
+        "professional_license": 413,
+        "safety_certification": 412
+      },
+      "test_class_counts": {
+        "background_check_consent": 137,
+        "bank_details": 137,
+        "education_certificate": 138,
+        "govt_id": 138,
+        "ip_agreement": 138,
+        "offer_letter": 137,
+        "other": 138,
+        "professional_license": 137,
+        "safety_certification": 138
+      },
+      "overlap_documents": 0
+    }
+  },
+  "messages": {
+    "name": "Employee messages (intent)",
+    "samples": 3360,
+    "classes": [
+      "document_help",
+      "escalation",
+      "it_access",
+      "kt_schedule",
+      "payroll_benefits",
+      "policy_question",
+      "smalltalk",
+      "status_check"
+    ],
+    "class_counts": {
+      "document_help": 420,
+      "escalation": 420,
+      "it_access": 420,
+      "kt_schedule": 420,
+      "payroll_benefits": 420,
+      "policy_question": 420,
+      "smalltalk": 420,
+      "status_check": 420
+    },
+    "class_balance_ratio": 1.0,
+    "chars_total": 245278,
+    "words_total": 44339,
+    "char_len": {
+      "min": 5,
+      "max": 158,
+      "mean": 72.99940476190476,
+      "median": 71.0,
+      "std": 27.08940224389246
+    },
+    "word_len": {
+      "min": 2,
+      "max": 30,
+      "mean": 13.196130952380953
+    },
+    "duplicates_exact": 200,
+    "duplicates_normalised": 293,
+    "empty_documents": 0,
+    "missing_values": 0,
+    "sentiment_counts": {
+      "positive": 913,
+      "neutral": 1318,
+      "negative": 1129
+    },
+    "source_templates": 45,
+    "tfidf": {
+      "raw_unique_tokens": 1196,
+      "word_ngram_features_min_df_1": 4581,
+      "word_ngram_features_min_df_2": 1838,
+      "features_pruned_away": 2743,
+      "matrix_shape": [
+        3360,
+        1838
+      ],
+      "sparsity_pct": 98.78034483652003,
+      "nonzero_per_doc_mean": 22.417261904761904
+    },
+    "split": {
+      "train_size": 2520,
+      "test_size": 840,
+      "split_ratio": "75/25",
+      "random_state": 42,
+      "stratified": true,
+      "max_class_proportion_drift": 0.0,
+      "train_class_counts": {
+        "document_help": 315,
+        "escalation": 315,
+        "it_access": 315,
+        "kt_schedule": 315,
+        "payroll_benefits": 315,
+        "policy_question": 315,
+        "smalltalk": 315,
+        "status_check": 315
+      },
+      "test_class_counts": {
+        "document_help": 105,
+        "escalation": 105,
+        "it_access": 105,
+        "kt_schedule": 105,
+        "payroll_benefits": 105,
+        "policy_question": 105,
+        "smalltalk": 105,
+        "status_check": 105
+      },
+      "overlap_documents": 70
+    },
+    "leakage_impact_sentiment": {
+      "test_size": 840,
+      "leaked_rows": 76,
+      "clean_rows": 764,
+      "accuracy_overall": 0.9964285714285714,
+      "accuracy_on_leaked": 0.9868421052631579,
+      "accuracy_on_clean": 0.9973821989528796,
+      "memorisation_gap": -0.010540093689721752
+    },
+    "leakage_impact_intent": {
+      "test_size": 840,
+      "leaked_rows": 75,
+      "clean_rows": 765,
+      "accuracy_overall": 0.9369047619047619,
+      "accuracy_on_leaked": 0.9466666666666667,
+      "accuracy_on_clean": 0.9359477124183007,
+      "memorisation_gap": 0.010718954248365997
+    }
+  },
+  "risk": {
+    "samples": 6000,
+    "features": 12,
+    "feature_names": [
+      "days_since_start",
+      "stage",
+      "progress",
+      "pct_tasks_complete",
+      "days_since_last_activity",
+      "docs_pending",
+      "docs_rejected",
+      "doc_resubmissions",
+      "kt_completed_pct",
+      "chat_messages",
+      "avg_sentiment",
+      "seniority"
+    ],
+    "target": "stalled (binary)",
+    "target_positive_rate": 0.43316666666666664,
+    "target_counts": {
+      "stalled": 2599,
+      "not_stalled": 3401
+    },
+    "duplicate_rows": 0,
+    "total_missing": 0,
+    "per_feature": {
+      "days_since_start": {
+        "dtype": "float64",
+        "min": 3.0,
+        "max": 60.0,
+        "mean": 31.434,
+        "std": 16.7133871691727,
+        "median": 31.0,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 0,
+        "outliers_pct": 0.0,
+        "mean_after_scaling": -5.802765675374151e-17,
+        "std_after_scaling": 0.9999999999999999
+      },
+      "stage": {
+        "dtype": "float64",
+        "min": 0.0,
+        "max": 5.0,
+        "mean": 1.8,
+        "std": 1.2227019260637484,
+        "median": 2.0,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 0,
+        "outliers_pct": 0.0,
+        "mean_after_scaling": -1.9539925233402754e-17,
+        "std_after_scaling": 0.9999999999999991
+      },
+      "progress": {
+        "dtype": "float64",
+        "min": 0.0,
+        "max": 100.0,
+        "mean": 36.110202715442135,
+        "std": 23.517643947218158,
+        "median": 33.35592223502959,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 0,
+        "outliers_pct": 0.0,
+        "mean_after_scaling": 4.4912222089503e-15,
+        "std_after_scaling": 0.9999999999999992
+      },
+      "pct_tasks_complete": {
+        "dtype": "float64",
+        "min": 0.0030254557405187316,
+        "max": 1.0,
+        "mean": 0.3611362232595784,
+        "std": 0.22095120735837703,
+        "median": 0.3304195440079517,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 0,
+        "outliers_pct": 0.0,
+        "mean_after_scaling": -1.2079226507921704e-16,
+        "std_after_scaling": 0.9999999999999991
+      },
+      "days_since_last_activity": {
+        "dtype": "float64",
+        "min": 0.0001834482265949226,
+        "max": 30.0,
+        "mean": 2.821959754017183,
+        "std": 3.8989789588239776,
+        "median": 1.4513825975895773,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 477,
+        "outliers_pct": 7.95,
+        "mean_after_scaling": -5.195843755245732e-16,
+        "std_after_scaling": 0.9999999999999994
+      },
+      "docs_pending": {
+        "dtype": "float64",
+        "min": 0.0,
+        "max": 9.0,
+        "mean": 2.134333333333333,
+        "std": 2.2774886510267303,
+        "median": 1.0,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 272,
+        "outliers_pct": 4.533333333333333,
+        "mean_after_scaling": 3.907985046680551e-17,
+        "std_after_scaling": 0.9999999999999645
+      },
+      "docs_rejected": {
+        "dtype": "float64",
+        "min": 0.0,
+        "max": 5.0,
+        "mean": 0.2945,
+        "std": 0.6075385447305656,
+        "median": 0.0,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 1390,
+        "outliers_pct": 23.166666666666668,
+        "mean_after_scaling": 9.473903143468002e-18,
+        "std_after_scaling": 0.9999999999999751
+      },
+      "doc_resubmissions": {
+        "dtype": "float64",
+        "min": 0.0,
+        "max": 7.0,
+        "mean": 0.6325,
+        "std": 0.9392073342274679,
+        "median": 0.0,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 295,
+        "outliers_pct": 4.916666666666667,
+        "mean_after_scaling": 9.237055564881302e-17,
+        "std_after_scaling": 1.0000000000000124
+      },
+      "kt_completed_pct": {
+        "dtype": "float64",
+        "min": 0.5976936533138476,
+        "max": 100.0,
+        "mean": 31.66433928065332,
+        "std": 20.41737507385442,
+        "median": 27.594665692121993,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 43,
+        "outliers_pct": 0.7166666666666667,
+        "mean_after_scaling": 4.549249865704041e-15,
+        "std_after_scaling": 0.9999999999999983
+      },
+      "chat_messages": {
+        "dtype": "float64",
+        "min": 0.0,
+        "max": 32.0,
+        "mean": 5.132,
+        "std": 3.666411869934964,
+        "median": 4.0,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 206,
+        "outliers_pct": 3.433333333333333,
+        "mean_after_scaling": 9.177843670234627e-17,
+        "std_after_scaling": 0.9999999999999919
+      },
+      "avg_sentiment": {
+        "dtype": "float64",
+        "min": -0.9999559513914891,
+        "max": 0.9999629423033729,
+        "mean": -0.02868871289663024,
+        "std": 0.7154170227897626,
+        "median": -0.05738228363466833,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 0,
+        "outliers_pct": 0.0,
+        "mean_after_scaling": 1.2020014613275028e-16,
+        "std_after_scaling": 1.0
+      },
+      "seniority": {
+        "dtype": "float64",
+        "min": 0.0,
+        "max": 2.0,
+        "mean": 0.99,
+        "std": 0.8154140052758476,
+        "median": 1.0,
+        "missing": 0,
+        "zero_variance": false,
+        "outliers_iqr": 0,
+        "outliers_pct": 0.0,
+        "mean_after_scaling": 7.105427357601002e-18,
+        "std_after_scaling": 0.9999999999999329
+      }
+    },
+    "top_correlated_pairs": [
+      [
+        "stage",
+        "progress",
+        0.9730544339856793
+      ],
+      [
+        "progress",
+        "pct_tasks_complete",
+        0.9307447261224051
+      ],
+      [
+        "stage",
+        "pct_tasks_complete",
+        0.9050903797083534
+      ],
+      [
+        "docs_rejected",
+        "doc_resubmissions",
+        0.7452248150378357
+      ],
+      [
+        "pct_tasks_complete",
+        "kt_completed_pct",
+        0.743454018050509
+      ],
+      [
+        "progress",
+        "kt_completed_pct",
+        0.6912095992943064
+      ],
+      [
+        "stage",
+        "kt_completed_pct",
+        0.6751085745754926
+      ],
+      [
+        "days_since_start",
+        "kt_completed_pct",
+        0.5593452191052044
+      ]
+    ],
+    "correlation_with_target": {
+      "avg_sentiment": -0.4455349487192941,
+      "docs_pending": 0.3863252484623808,
+      "pct_tasks_complete": -0.37713919197925333,
+      "progress": -0.35345347914070524,
+      "stage": -0.3430907822673476,
+      "kt_completed_pct": -0.3176687989127441,
+      "days_since_last_activity": 0.2855916346764625,
+      "doc_resubmissions": 0.23855728967945214,
+      "docs_rejected": 0.20960131751602432,
+      "chat_messages": -0.06459024026348921,
+      "seniority": -0.03465344076632639,
+      "days_since_start": -0.008049189373895507
+    },
+    "departments": {
+      "Engineering": 1009,
+      "Legal": 984,
+      "Supply Chain": 993,
+      "Operations": 998,
+      "Sales": 1003,
+      "Design": 1013
+    },
+    "stall_rate_by_department": {
+      "Design": 0.3751233958538993,
+      "Engineering": 0.37661050545094155,
+      "Legal": 0.4654471544715447,
+      "Operations": 0.530060120240481,
+      "Sales": 0.39780658025922233,
+      "Supply Chain": 0.4561933534743202
+    },
+    "split": {
+      "train_size": 4500,
+      "test_size": 1500,
+      "split_ratio": "75/25",
+      "random_state": 42,
+      "stratified": true,
+      "train_positive_rate": 0.4331111111111111,
+      "test_positive_rate": 0.43333333333333335,
+      "scaler_fitted_on": "train only (inside the Pipeline, so the test fold is never seen)"
+    }
+  }
+}

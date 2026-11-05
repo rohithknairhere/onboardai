@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-base: #F7F5F0;
+    --color-surface-main: #FFFFFF;
+    --color-surface-nested: #F0EBE1;
+    --color-primary: #171717;
+    --color-accent-gold: #B08D57;
+    --color-accent-light: #D6C09A;
+    --color-text-secondary: #77736C;
+    --color-text-main: #1C1C1C;
+    --color-border: #E4DFD5;
+    --color-status-progress: #D6C09A;
+    --color-status-success: #4CAF50;
+    --color-status-error: #EF4444;
+  }
+
+  .dark {
+    --color-base: #0D0D0D;
+    --color-surface-main: #171717;
+    --color-surface-nested: #222222;
+    --color-primary: #F5F1E8;
+    --color-accent-gold: #C6A15B;
+    --color-accent-light: #E1C98F;
+    --color-text-secondary: #9B978F;
+    --color-text-main: #F5F1E8;
+    --color-border: #2B2926;
+    --color-status-progress: #E1C98F;
+    --color-status-success: #7A9B76;
+    --color-status-error: #B5534C;
+  }
+
+  body {
+    @apply bg-base text-text-main font-sans antialiased m-0 p-0 transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-text-main;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface-main rounded-[12px] p-6 shadow-soft border border-subtle;
+  }
+  
+  .card-nested {
+    @apply bg-surface-nested rounded-lg p-4 border border-subtle;
+  }
+  
+  .btn-primary {
+    @apply bg-accent-gold text-base font-medium px-4 py-2 rounded-lg transition-colors hover:bg-opacity-90 active:scale-[0.98] flex items-center justify-center;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent text-text-main border border-subtle px-4 py-2 rounded-lg transition-colors hover:border-text-secondary active:scale-[0.98] flex items-center justify-center;
+  }
+
+  .status-pill {
+    @apply flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border border-subtle;
+  }
+}

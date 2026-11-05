@@ -1,0 +1,19 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+python-dotenv
+python-multipart
+httpx
+
+langchain
+langchain-community
+langgraph
+
+# Default LLM backend: local Ollama, no API key, no cost.
+langchain-ollama
+
+# Optional free-tier fallbacks. Uncomment only if you set the matching API key;
+# llm_provider imports these lazily, so leaving them out is harmless.
+# langchain-google-genai   # LLM_PROVIDER=gemini, needs GOOGLE_API_KEY
+# langchain-groq           # LLM_PROVIDER=groq,   needs GROQ_API_KEY

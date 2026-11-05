@@ -1,0 +1,211 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+\title{\textbf{Quality Assurance Role Documentation}}
+\author{Pasham Srikar (DL.AI.U4AID25049), QA}
+\date{}
+\maketitle
+
+\begin{center}\itshape OnboardAI, Mid Term Review. Prepared by Pasham Srikar (DL.AI.U4AID25049)\end{center}
+
+\begin{tabular}{p{0.26\linewidth}p{0.66\linewidth}}
+\toprule
+\textbf{Project} & OnboardAI, an AI assisted employee onboarding system \\
+\textbf{Role} & Quality Assurance \\
+\textbf{Phase} & Mid term review, work completed up to data splitting \\
+\textbf{Date} & 08 October 2026 \\
+\textbf{Artefacts owned} & Data quality report, defect register, documentation inventory \\
+\bottomrule
+\end{tabular}
+
+\section{1. Purpose and Scope}
+This document sets out the quality controls applied to the project during its first half, the results obtained from applying them, and the limitations that are known and have not yet been addressed.
+
+Quality assurance in this project is a distinct activity from testing, and the separation took some time to establish clearly. Testing asks whether the system does what was specified. Quality assurance asks whether the method of working is capable of producing a trustworthy result, and whether the claims made about that result are genuinely supported by evidence. The Tester identifies faults in the system. This role is concerned with faults in the process and in the reasoning.
+
+\section{2. Quality Criteria for This Phase}
+Five criteria were agreed with the team lead at the start of the phase. Every section of this document maps back to one of them.
+
+\begin{table}[!t]
+\centering
+\caption{Quality criteria and the evidence for each}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.209\linewidth}p{0.418\linewidth}p{0.313\linewidth}}
+\toprule
+\textbf{Criterion} & \textbf{Meaning in this project} & \textbf{Evidence} \\
+\midrule
+Data is fit for use & No missing values, no undisclosed duplicates, correct types, documented class balance & Section 4, generated data report \\
+Preprocessing is verified & Every transformation produces the claimed output, demonstrated with before and after figures & Section 5 \\
+Claims are supported & Every figure in a report or slide traces to a script that produced it & Section 7 \\
+Defects are visible & Known problems are recorded with a severity rather than retained informally & Section 6 \\
+Work is reproducible & Any team member can regenerate every figure and every number from a single command & Section 8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{3. The Quality Process for Each Iteration}
+The following review cycle is executed each time a piece of work is declared complete. It runs after the Tester has finished, since there is no value in reviewing the quality of something that does not yet function.
+
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+  \item Confirm that the work is genuinely complete. The path under review is checked for placeholder values, hardcoded constants and commented out blocks. The train and serve defect described in section 6 was identified at this step.
+  \item Regenerate every artefact from scratch. The generated reports and figures are deleted and rebuilt using python -m ml.data\_report and python -m ml.eda. Any artefact that fails to regenerate was edited by hand at some point, which breaks the link between the project's claims and its data.
+  \item Confirm that every figure quoted in the documents appears in a generated file. Figures quoted in the slides and the reports are checked against data\_report.json and the test report. A figure that cannot be traced is removed or replaced.
+  \item Review the data quality section of the report against the underlying data. Missing values, duplicates, class balance, outliers and value ranges are examined and compared against the previous run.
+  \item Verify preprocessing by inspecting the output rather than the description. For scaling, the resulting columns are confirmed to have a mean of zero and unit variance. For vectorisation, the matrix dimensions and sparsity are confirmed against the reported values.
+  \item Challenge at least one documented claim deliberately. In each cycle a statement made by the team is selected and evidence that would contradict it is sought. The leakage measurement described in section 6 originated from this step, and it is considered the most valuable part of the cycle.
+  \item Update the defect register. Every finding receives an identifier, a severity, an owner and a status. No item is closed on the basis of a report that it has been fixed, only on the evidence being regenerated.
+  \item Confirm the documentation inventory is current. Where a new script has been added during the cycle, it must appear in the README and in the relevant guide, otherwise it will be overlooked by the final review.
+  \item Record limitations rather than removing them. Where a problem is genuine but a decision has been taken not to address it in the current phase, it is entered in the limitations list together with the reason for deferral.
+\end{enumerate}
+
+\section{4. Data Quality Checks and Results}
+All three datasets were examined for the same set of defects. The results below are taken from the generated report rather than from manual inspection.
+
+\begin{table}[!t]
+\centering
+\caption{Data quality check results}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.230\linewidth}p{0.146\linewidth}p{0.146\linewidth}p{0.136\linewidth}p{0.282\linewidth}}
+\toprule
+\textbf{Check} & \textbf{Documents} & \textbf{Messages} & \textbf{Journeys} & \textbf{Assessment} \\
+\midrule
+Missing values & 0 & 0 & 0 & Pass \\
+Exact duplicates & 0 & 200 & 0 & Fail on messages, see Q-01 \\
+Duplicates after normalising & 0 & 293 & Not applicable & Fail on messages \\
+Empty records & 0 & 0 & 0 & Pass \\
+Zero variance features & Not applicable & Not applicable & 0 & Pass \\
+Class balance ratio & 1.00 & 1.00 & 0.76 & Acceptable \\
+Values within declared range & Pass & Pass & Pass & Pass \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The outlier count across the twelve numeric features is 2,683 under the interquartile range rule. These were reviewed with the developer and retained. The features that produce outliers are counts and waiting times, and their long tail represents the behaviour the system is intended to detect. Removing them would improve the appearance of the distribution plots while deleting the cases of interest.
+
+\section{5. Preprocessing Verification}
+Each preprocessing step was verified by inspecting its output rather than by accepting the description of it.
+
+\begin{table}[!t]
+\centering
+\caption{Preprocessing verification results}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.230\linewidth}p{0.418\linewidth}p{0.292\linewidth}}
+\toprule
+\textbf{Step} & \textbf{Property checked} & \textbf{Result} \\
+\midrule
+Text vectorisation & Matrix row count equals document count, column count is plausible, sparsity exceeds 95 per cent & 4,950 rows by 11,482 columns, verified \\
+Minimum document frequency pruning & Feature count at min\_df of two is lower than at min\_df of one & 30,426 features removed, verified \\
+Feature scaling & Each of the twelve columns has a mean of zero and a standard deviation of one after transformation & All twelve verified to within floating point tolerance \\
+Pipeline placement of the scaler & The scaler sits inside the pipeline object and refits on each training fold & Confirmed by code inspection \\
+Split stratification & Class proportions in both folds match the full dataset & Maximum drift 0.0001, verified \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{6. Defect and Limitation Register}
+This register holds every known fault and incomplete item. Entries are closed only when the supporting evidence has been regenerated, not when a fix is reported.
+
+\begin{table}[!t]
+\centering
+\caption{Defect and limitation register}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.073\linewidth}p{0.522\linewidth}p{0.136\linewidth}p{0.209\linewidth}}
+\toprule
+\textbf{Ref} & \textbf{Description} & \textbf{Severity} & \textbf{Status} \\
+\midrule
+Q-01 & The message dataset holds 200 duplicate records, of which 70 appear in both folds. The impact was measured and found to be negligible, but the defect is genuine. & Major & Open, deferred to the next phase \\
+Q-02 & Two risk model features were supplied as hardcoded constants at prediction time while the model had been trained on values that varied. & Blocking & Closed, both features removed and the model retrained \\
+Q-03 & All three datasets are synthetic. Reported figures describe consistency with the project's own generators rather than real world performance. & Major & Open, accepted limitation for this phase \\
+Q-04 & Three journey features correlate above 0.9, so the feature set contains redundancy. & Minor & Open, recorded for the next phase \\
+Q-05 & Sentiment classification reaches a very high score because the generator marks sentiment with stock phrases. This is a property of the data and must not be presented as model capability. & Major & Open, documented in all reports \\
+Q-06 & Generated documents average 348 characters, considerably shorter than a real scanned certificate, so the task is easier than the real equivalent. & Minor & Open, accepted limitation \\
+Q-07 & The project has no authentication on its web endpoints and no version control history. & Major & Open, outside mid term scope \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Q-02 is the most significant finding of the phase, because no test existing at the time would have detected it. The risk model had been trained on twelve features that varied across the dataset, but at prediction time two of them were being supplied with the same fixed value for every employee. The model was therefore applying learned weights to information it never actually received. Both values were examined to establish whether either could be computed from the available data. Neither could, so both features were removed from the feature set and the model was retrained. The reported score changed very little, which is the point of the correction. The figure now describes what the model genuinely observes.
+
+\section{7. Traceability of Claims}
+Every quantitative statement in the project's slides, paper and reports originates from one of four generated files. No figure is entered by hand.
+
+\begin{table}[!t]
+\centering
+\caption{Source of each class of claim}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.272\linewidth}p{0.355\linewidth}p{0.313\linewidth}}
+\toprule
+\textbf{Claim type} & \textbf{Produced by} & \textbf{Output file} \\
+\midrule
+Dataset sizes, class balance, duplicates, correlations & python -m ml.data\_report & ml/artifacts/data\_report.json and .md \\
+All figures and their written observations & python -m ml.eda & ml/artifacts/eda/ \\
+Test case results & python -m tests.make\_test\_report & ml/artifacts/test\_report.md \\
+Slide content & python docs/build\_midterm\_deck.py & docs/OnboardAI\_MidTerm\_Review.pptx \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{8. Reliability and Reproducibility Checks}
+The work was confirmed to be rebuildable from nothing by a different person on a different machine. The checks below were performed after deleting the generated artefacts.
+
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item Every dataset uses a fixed random seed of 42, so regeneration produces identical data. This is verified by test TC-15.
+  \item All figures and reports regenerate from two commands with no manual editing.
+  \item The full test suite completes in approximately twenty seconds and requires no network access.
+  \item Processing performance was measured rather than assumed. Document analysis completes well within the five second limit, and classification and retrieval each average under 150 milliseconds across fifty runs.
+  \item No step in the pipeline requires a paid service or an API key.
+\end{itemize}
+
+\section{9. Documentation Inventory}
+Part of this role is ensuring the project can be understood by somebody who was not present during its development. The following documents are current as of this review.
+
+\begin{table}[!t]
+\centering
+\caption{Documentation held for the current phase}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.345\linewidth}p{0.146\linewidth}p{0.449\linewidth}}
+\toprule
+\textbf{Document} & \textbf{Owner} & \textbf{Purpose} \\
+\midrule
+Data report & Developer and QA & Dataset description, quality checks, preprocessing evidence, split audit \\
+EDA observations & Developer & Ten figures with the written observation each supports \\
+Test report & Tester & All 34 cases with input, expected result and actual result \\
+Tester role document & Tester & Test strategy, iteration process, defect log \\
+QA role document & QA & Quality criteria, verification results, defect register \\
+Project guides & Team & Code walkthrough and a technical and non technical explanation \\
+README & Team & Setup and run instructions from a clean machine \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{10. Recommendations for Improvement}
+These are ordered by the amount of risk each removes rather than by difficulty.
+
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+  \item Place the project under version control. At present there is no commit history, so an error cannot be reverted and the work exists on a single machine. This is the largest single risk to the project and requires only minutes to resolve.
+  \item Deduplicate the message dataset before splitting and re-measure the leakage, so that Q-01 can be closed properly rather than carried forward.
+  \item Introduce accuracy thresholds into the test suite once models are trained, so that a change degrading a model fails the build rather than being discovered during a review.
+  \item Obtain a real document corpus for the next phase. Every figure reported at present is bounded by the quality of the project's own generators, and no amount of care in the analysis removes that limit.
+  \item Combine or remove the redundant progress features identified in Q-04, since three features measuring the same quantity makes any feature importance result harder to interpret.
+\end{enumerate}
+
+\end{document}
