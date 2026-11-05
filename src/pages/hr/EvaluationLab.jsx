@@ -4,7 +4,7 @@ import {
   RotateCcw, Flame, Upload, Download, ChevronDown, ChevronRight, ShieldCheck, Search,
 } from 'lucide-react';
 
-const API = 'http://localhost:8000/api';
+import { API_BASE_URL as API } from '../../config';
 
 // Reported in ml/artifacts/nlp_report.md: held-out split of the synthetic data.
 const SYNTHETIC_INTENT_ACCURACY = 0.9369;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import { API_BASE_URL } from '../../config';
 import { Send, Bot, ArrowLeft, Paperclip, X } from 'lucide-react';
 
 export const EmployeeChat = () => {
@@ -47,7 +48,7 @@ export const EmployeeChat = () => {
     setRoutingState('routing');
 
     try {
-      const response = await fetch('http://localhost:8000/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, emp_id: currentUser?.id })

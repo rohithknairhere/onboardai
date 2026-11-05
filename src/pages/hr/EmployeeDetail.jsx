@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
+import { API_BASE_URL } from '../../config';
 import { StageTracker } from '../../components/StageTracker';
 import { StatusPill } from '../../components/StatusPill';
 import { DocumentAnalysis } from '../../components/DocumentAnalysis';
@@ -142,7 +143,7 @@ export const HrEmployeeDetail = () => {
                       <h3 className="text-sm font-medium">{doc.name}</h3>
                       {upload ? (
                         <a
-                          href={`http://localhost:8000/api/uploads/${upload.id}/file`}
+                          href={`${API_BASE_URL}/uploads/${upload.id}/file`}
                           target="_blank"
                           rel="noreferrer"
                           className="text-xs text-accent-gold hover:underline truncate block mt-1"

@@ -3,7 +3,7 @@ import { stages as mockStages } from '../mockData';
 
 const AppContext = createContext();
 
-const API_BASE_URL = 'http://localhost:8000/api';
+import { API_BASE_URL } from '../config';
 
 export const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null); // null means not logged in
